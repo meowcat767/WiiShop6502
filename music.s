@@ -9,7 +9,7 @@
 .res 8, $00
 
 .segment "ZEROPAGE"
-note_timer: res 1
+note_timer: .res 1
 
 .segment "CODE"
 
