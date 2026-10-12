@@ -95,11 +95,11 @@ frame_loop:
 ; REMOVE ME AFTER TEST!
 
 note_lo:
-    .byte $FE       ; C5
-    .byte $D5       ; D5
-    .byte $BE       ; E5
-    .byte $9F       ; G5
-    .byte $FE       ; C5
+    .byte $FE       ; A4
+    .byte $D5       ; C5
+    .byte $BE       ; D5
+    .byte $9F       ; F5
+    .byte $FE       ; A4
     .byte $00       ; Rest
 
 note_hi:
@@ -113,4 +113,3 @@ note_durations:
 
 .segment "CHARS"
 .res 8192, $00
-
