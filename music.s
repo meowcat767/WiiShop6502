@@ -142,7 +142,28 @@ pitch_lo:
    .byte $5E
 
 pitch_hi:
-    
+    .byte $00         
+    .byte $04         
+    .byte $03         
+    .byte $03         
+    .byte $03         
+    .byte $02         
+    .byte $00         
+    .byte $00         
+    .byte $00         
+    .byte $00         
+    .byte $00         
+    .byte $00         
+    .byte $00         
+    .byte $00         
+    .byte $00         
+    .byte $00         
+    .byte $00         
+    .byte $00        
+    .byte $00         
+    .byte $00         
+
+
 
 
 .segment "VECTORS"
