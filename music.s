@@ -163,8 +163,31 @@ pitch_hi:
     .byte $00         
     .byte $00         
 
+; intro riff
+intro_melody_pitch:
+    .byte E5, G5, D5
+    .byte E5, G5, D5
+    .byte E5, G5, D5
+    .byte E5, G5, D5
 
+intro_melody_duration:
+    .byte 8, 8, 8
+    .byte 8, 8, 8
+    .byte 8, 8, 8
+    .byte 8, 8, 8
 
+intro_bass_pitch
+    .byte D3, D3, D3, D3
+    .byte D3, D3, D3, D3
+    .byte D3, D3, D3, D3
+
+intro_bass_duration:
+    .byte 8, 8, 8, 8
+    .byte 8, 8, 8, 8
+    .byte 8, 8, 8, 8
+
+INTRO_MELODY_COUNT = 12
+INTRO_BASS_COUNT = 12
 
 .segment "VECTORS"
 .word reset, reset, reset
