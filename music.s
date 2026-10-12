@@ -8,6 +8,7 @@ NOTE_COUNT = 6
 .byte $02               ; 32 KB PRG ROM
 .byte $00               ; CHR RAM
 .byte $00, $00          ; Mapper 0
+.byte $00, $00, $00, $00, $00, $00, $00, $00 ; reserved header bytes
 
 .segment "ZEROPAGE"
 note_index: .res 1
@@ -113,5 +114,4 @@ note_durations:
 
 .segment "CHARS"
 .res 8192, $00
-
 
