@@ -1,15 +1,17 @@
 ; WiiShop6502
 ; Written by meowcat767 - 2026
 
+NOTE_COUNT = 8
+
 .segment "HEADER"
-.byte $4E, $45, $53, $1A ; iNES magic
-.byte $02 ; PRG ROM size
-.byte $00 ; CHR RAM
-.byte $00, $00 ; Mapper 0
-.res 8, $00
+.byte $4E, $45, $53, $1A
+.byte $02               ; 32 KB PRG ROM
+.byte $00               ; CHR RAM
+.byte $00, $00          ; Mapper 0
 
 .segment "ZEROPAGE"
-note_timer: .res 1
+note_index: .res 1
+note_ticks: .res 1
 
 .segment "CODE"
 
@@ -17,39 +19,96 @@ note_timer: .res 1
     sei
     cld
     ldx #$40
-    stx $4017               ; DISABLE FRAME IRQ
-    txs 
-    inx                     ; X = 0
-
-    stx $2000               ; Disable NMI
-    stx $2001               ; Disable rendering
-    stx $4010               ; Disable DMC IRQ
-    stx $4015               ; Disable APU channels
-
-    ; wait for ppu startup
+    stx $4017           ; disable APU frame IRQ
+    ldx #$FF
+    txs
+    inx
+    stx $2000           ; disable NMI
+    stx $2001           ; disable rendering
+    stx $4010          ; disable DMC IRQ
+    stx $4015          ; disable APU channels
+    ; wait for PPU startup to settle
     bit $2002
 
-wait_vblank:
+@wait1:
     bit $2002
-    bpl wait_vblank
+    bpl @wait1
+@wait2:
+    bit $2002
+    bpl @wait2
+    ; start at the first note
+    lda #$00
+    sta note_index
+    jsr note_load
 
+    ; advance the music once per PPU frame
+
+frame_loop:
+@wait_frame:
+    bit $2002
+    bpl @wait_frame
+    dec note_ticks
+    bne frame_loop
+    ; advance to the next note
+    inc note_index
+    lda note_index
+    cmp #NOTE_COUNT
+    bcc @index_ok
+    lda #$00
+    sta note_index
+@index_ok:
+    jsr load_note
+    jmp frame_loop
+.endproc
+
+; load the current note's pitch and duration
+.proc load_note
+    ldx note_index
+    lda note_durations,x
+    sta note_ticks
+    lda note_lo,x
+    ; timer value zero means a rest!
+    beq @rest
     ; enable pulse channel 1
     lda #$01
     sta $4015
-
-    ; duty cycle and constant vol
+    ; constant volume, 50% duty cycle
     lda #$BF
     sta $4000
-
-    ; set pulse timer for a tone
-    lda #$FD
+    ; set the 11-bit pulse timer
+    ldx note_index
+    lda note_lo,x
     sta $4002
-    lda #$08
+    lda note_hi,x
+    ora #$508
     sta $4003
+    rts
 
-forever:
-    jmp forever
+@rest:
+    lda #$00
+    sta $4015
+    rts
 .endproc
+
+; test melody
+; REMOVE ME AFTER TEST!
+
+note_lo:
+    .byte $D5           ; C5
+    .byte $BD           ; D5
+    .byte $A9           ; E5
+    .byte $BD           ; G5
+    .byte $D5           ; C5
+    .byte $00           ; rest
+
+note_hi:
+    .byte $00, $00, $00, $00
+    .byte $00, $00, $00, $00
+
+; duration in frames (roughly 60 FPS)
+note_durations:
+    .byte 18, 18, 18, 36
+    .byte 18, 18, 18, 36
 
 .segment "VECTORS"
 .word reset, reset, reset
