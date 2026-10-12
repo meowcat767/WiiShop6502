@@ -1,7 +1,7 @@
 ; WiiShop6502
 ; Written by meowcat767 - 2026
 
-NOTE_COUNT = 6
+NOTE_COUNT = 16
 
 .segment "HEADER"
 .byte $4E, $45, $53, $1A
@@ -91,22 +91,25 @@ frame_loop:
     rts
 .endproc
 
-; test melody
-; REMOVE ME AFTER TEST!
+; the actual song!
 
 note_lo:
-    .byte $FE       ; A4
-    .byte $D5       ; C5
-    .byte $BE       ; D5
-    .byte $9F       ; F5
-    .byte $FE       ; A4
-    .byte $00       ; Rest
+    .byte $FE, $BE, $9F, $BE
+    .byte $D5, $BE, $FE, $00
+    .byte $9F, $BE, $D5, $BE
+    .byte $FE, $D5, $FE, $00
 
 note_hi:
-    .byte $00, $00, $00, $00, $00, $00
+     .byte $00, $00, $00, $00
+     .byte $00, $00, $00, $00
+     .byte $00, $00, $00, $00
+     .byte $00, $00, $00, $00
 
 note_durations:
-    .byte 18, 18, 18, 36, 18, 18
+    .byte 12, 12, 24, 12
+    .byte 12, 12, 30, 12
+    .byte 12, 12, 24, 12
+    .byte 12, 12, 30, 18
 
 .segment "VECTORS"
 .word reset, reset, reset
