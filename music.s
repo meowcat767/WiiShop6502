@@ -1,7 +1,7 @@
 ; WiiShop6502
 ; Written by meowcat767 - 2026
 
-NOTE_COUNT = 16
+NOTE_COUNT = 12
 
 .segment "HEADER"
 .byte $4E, $45, $53, $1A
@@ -65,22 +65,21 @@ frame_loop:
 ; load the current note's pitch and duration
 .proc load_note
     ldx note_index
-    lda note_durations,x
+    lda intro_melody_duration,x
     sta note_ticks
-    lda note_lo,x
-    ; timer value zero means a rest!
+    lda intro_melody_pitch,x
     beq @rest
+    tax
     ; enable pulse channel 1
     lda #$01
     sta $4015
     ; constant volume, 50% duty cycle
     lda #$BF
     sta $4000
-    ; set the 11-bit pulse timer
-    ldx note_index
-    lda note_lo,x
+    ; look up and set the 11-bit pulse timer
+    lda pitch_lo,x
     sta $4002
-    lda note_hi,x
+    lda pitch_hi,x
     and #$07
     sta $4003
     rts
@@ -176,7 +175,7 @@ intro_melody_duration:
     .byte 8, 8, 8
     .byte 8, 8, 8
 
-intro_bass_pitch
+intro_bass_pitch:
     .byte D3, D3, D3, D3
     .byte D3, D3, D3, D3
     .byte D3, D3, D3, D3
@@ -191,7 +190,7 @@ INTRO_BASS_COUNT = 12
 
 ; SECTION A
 section_a_melody_pitch:
-    .byte D5, F55, A5, FS5, D5
+    .byte D5, FS5, A5, FS5, D5
     .byte C5, E5, G5, E5, C5
     .byte B4, D5, G5, D5, B4
     .byte A4, CS5, E5, G5, FS5
