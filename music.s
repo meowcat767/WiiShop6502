@@ -95,17 +95,16 @@ frame_loop:
 ; REMOVE ME AFTER TEST!
 
 note_lo:
-    .byte $D5           ; C5
-    .byte $BD           ; D5
-    .byte $A9           ; E5
-    .byte $BD           ; G5
-    .byte $D5           ; C5
-    .byte $00           ; rest
+    .byte $FE       ; C5
+    .byte $D5       ; D5
+    .byte $BE       ; E5
+    .byte $9F       ; G5
+    .byte $FE       ; C5
+    .byte $00       ; Rest
 
 note_hi:
     .byte $00, $00, $00, $00, $00, $00
 
-; duration in frames (roughly 60 FPS)
 note_durations:
     .byte 18, 18, 18, 36, 18, 18
 
