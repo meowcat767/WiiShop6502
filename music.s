@@ -91,25 +91,59 @@ frame_loop:
     rts
 .endproc
 
-; the actual song!
+; IDs
 
-note_lo:
-    .byte $FE, $BE, $9F, $BE
-    .byte $D5, $BE, $FE, $00
-    .byte $9F, $BE, $D5, $BE
-    .byte $FE, $D5, $FE, $00
+REST = 0;
+G2 = 1
+A2 = 2
+B2 = 3
+C3 = 4
+D3 = 5
+A4 = 6
+B4 = 7
+C5 = 8
+CS5 = 9
+D5 = 10
+EB5 = 11
+E5 = 12
+FS5 = 13
+G5 = 14
+A5 = 15
+BB5 = 16
+B5 = 17
+C6 = 18
+D6 = 19
 
-note_hi:
-     .byte $00, $00, $00, $00
-     .byte $00, $00, $00, $00
-     .byte $00, $00, $00, $00
-     .byte $00, $00, $00, $00
+PITCH_COUNT = 20
 
-note_durations:
-    .byte 12, 12, 24, 12
-    .byte 12, 12, 30, 12
-    .byte 12, 12, 24, 12
-    .byte 12, 12, 30, 18
+; index 0 is REST
+; the timer tables contain the low and high bytes of the 11-bit pulse timer values for each pitch
+
+pitch_lo:
+   .byte $00
+   .byte $74
+   .byte $F8
+   .byte $89
+   .byte $56
+   .byte $F9
+   .byte $FD
+   .byte $E1
+   .byte $D5
+   .byte $C9
+   .byte $BD
+   .byte $B3
+   .byte $A9
+   .byte $96
+   .byte $8E
+   .byte $7E
+   .byte $77
+   .byte $70
+   .byte $6A
+   .byte $5E
+
+pitch_hi:
+    
+
 
 .segment "VECTORS"
 .word reset, reset, reset
