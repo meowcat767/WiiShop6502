@@ -189,6 +189,77 @@ intro_bass_duration:
 INTRO_MELODY_COUNT = 12
 INTRO_BASS_COUNT = 12
 
+; SECTION A
+section_a_melody_pitch:
+    .byte D5, F55, A5, FS5, D5
+    .byte C5, E5, G5, E5, C5
+    .byte B4, D5, G5, D5, B4
+    .byte A4, CS5, E5, G5, FS5
+
+section_a_melody_duration:
+    .byte 12, 12, 12, 12, 18
+    .byte 12, 12, 12, 12, 18
+    .byte 12, 12, 12, 12, 18
+    .byte 12, 12, 12, 12, 18
+
+section_a_bass_pitch:
+    .byte G2, D3, G2, A2
+
+section_a_bass_duration:
+    .byte 60, 60, 60, 60
+
+SECTION_A_MELODY_COUNT = 20
+SECTION_A_BASS_COUNT = 4
+
+; SECTION B
+section_b_melody_pitch:
+    .byte E5, G5, C6, E5, G5, C6
+    .byte E5, G5, B5, E5, G5, B5
+    .byte E5, G5, A5, E5, G5, A5
+    .byte D5, FS5, A5
+
+section_b_melody_duration:
+    .byte 6, 6, 6, 6, 12
+    .byte 6, 6, 6, 6, 12
+    .byte 6, 6, 6, 6, 12
+    .byte 18, 18, 36
+
+section_b_bass_pitch:
+    .byte C3, B2, A2, D3
+
+section_b_bass_duration:
+    .byte 60, 60, 60, 60
+
+SECTION_B_MELODY_COUNT = 21
+SECTION_B_BASS_COUNT = 4
+
+; SECTION C
+
+section_c_melody_pitch:
+    .byte EB5, G5, D6, EB5, G5, D6
+    .byte EB5, G5, C6, EB5, G5, C6
+    .byte C5, EB5, BB5, C5, EB5, BB5
+    .byte C5, EB5, A5, C5, EB5, A5
+
+section_c_melody_duration:
+    .byte 8, 8, 18, 8, 8, 18
+    .byte 8, 8, 18, 8, 8, 18
+    .byte 8, 8, 18, 8, 8, 18
+    .byte 8, 8, 18, 8, 8, 24
+
+section_c_bass_pitch:
+    .byte G2, G2, D3, D3
+    .byte C3, C3, B2, B2
+    .byte A2, A2, D3, D3
+
+setion_c_bass_duration:
+    .byte 36, 36, 36, 36
+    .byte 36, 36, 36, 36
+    .byte 36, 36, 36, 36
+
+SECTION_C_MELODY_COUNT = 24
+SECTION_C_BASS_COUNT = 12
+
 .segment "VECTORS"
 .word reset, reset, reset
 
