@@ -1,7 +1,7 @@
 ; WiiShop6502
 ; Written by meowcat767 - 2026
 
-NOTE_COUNT = 8
+NOTE_COUNT = 6
 
 .segment "HEADER"
 .byte $4E, $45, $53, $1A
@@ -80,7 +80,7 @@ frame_loop:
     lda note_lo,x
     sta $4002
     lda note_hi,x
-    ora #$08
+    and #$07
     sta $4003
     rts
 
@@ -102,13 +102,11 @@ note_lo:
     .byte $00           ; rest
 
 note_hi:
-    .byte $00, $00, $00, $00
-    .byte $00, $00, $00, $00
+    .byte $00, $00, $00, $00, $00, $00
 
 ; duration in frames (roughly 60 FPS)
 note_durations:
-    .byte 18, 18, 18, 36
-    .byte 18, 18, 18, 36
+    .byte 18, 18, 18, 36, 18, 18
 
 .segment "VECTORS"
 .word reset, reset, reset
