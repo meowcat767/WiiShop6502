@@ -39,7 +39,7 @@ note_ticks: .res 1
     ; start at the first note
     lda #$00
     sta note_index
-    jsr note_load
+    jsr load_note
 
     ; advance the music once per PPU frame
 
@@ -80,7 +80,7 @@ frame_loop:
     lda note_lo,x
     sta $4002
     lda note_hi,x
-    ora #$508
+    ora #$08
     sta $4003
     rts
 
@@ -115,3 +115,5 @@ note_durations:
 
 .segment "CHARS"
 .res 8192, $00
+
+
