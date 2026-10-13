@@ -193,4 +193,4 @@ note_accidentals:
 .word reset, reset, reset ; Assign interrupt entry points directly to boot logic
 
 .segment "CHR"
-.incbin "font.chr"       ; Fills out full 8192 byte window with your graphics
+.incbin "font.chr"       ; Fills out full 8192 byte window
